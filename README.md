@@ -2,7 +2,7 @@
 
 ### dependencias do sistema de login
 
-npm i passport passport-local express-session brcrypt
+npm i passport passport-local express-session bcrypt
 
 # passport (http://www.passportjs.org/docs/downloads/html/)
 

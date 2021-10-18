@@ -14,12 +14,12 @@ function findUser(username) {
     return users.find(item => item.users);
 };
 
-function findUserById(id) {
+function findUserById(id) {                                                                                                   
     return users.find(item => item._id === id);
 };
 
 
-// serializeUser => uma vez autenticado ele salva um cookie no fromt e uma sessão no back.
+// serializeUser => uma vez autenticado ele salva um cookie no front e uma sessão no back.
 
 module.exports = (passport) => {
 
@@ -39,5 +39,21 @@ module.exports = (passport) => {
     })
 
     passport.use(new LocalStrategy({
+        username: 'password',
+        password: 'password'
+    },(username, password, done)=>{
+        try{
+            cont user = findUser(username);
+            if(!user) return done(null, false);
+
+            const isValid = bcrypt.compareSync(password, user.password);
+            if(!isValid) return done(null, false);
+            return (done(null,user));
+        }   catch (error) {
+            console.log(error);
+            return done(error, false);
+            
+        }
+        }
         
     }))
